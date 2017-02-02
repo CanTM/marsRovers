@@ -10,8 +10,6 @@ public class InstructionsProcessor {
 	public static void main(String[] args) {
 		if (args.length == 1) {
 
-			InputVerifier.verifyInput(args[0]);
-
 			BufferedReader br = null;
 			FileReader fr = null;
 			String verification = InputVerifier.verifyInput(args[0]);
@@ -22,7 +20,7 @@ public class InstructionsProcessor {
 				if (verification.equals("Ok")) {
 
 					String sCurrentLine;
-					br = new BufferedReader(new FileReader("input.txt"));
+					br = new BufferedReader(new FileReader(args[0]));
 					StringBuilder sb = new StringBuilder();
 					int lineNumber = 1;
 					int width = 0;

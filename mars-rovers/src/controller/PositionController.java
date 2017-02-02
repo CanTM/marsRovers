@@ -8,8 +8,8 @@ public class PositionController {
 	private Rover rover;
 
 	public PositionController(int h, int w, int x, int y, char direction) {
-		this.plateau = new Plateau(h, w);
-		this.rover = new Rover(x, y, direction);
+		plateau = new Plateau(h, w);
+		rover = new Rover(x, y, direction);
 	}
 
 	public Plateau getPlateau() {
@@ -39,7 +39,6 @@ public class PositionController {
 			break;
 		default:
 			break;
-
 		}
 	}
 }

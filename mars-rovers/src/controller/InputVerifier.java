@@ -186,7 +186,7 @@ public final class InputVerifier {
 
 			String sCurrentLine;
 
-			br = new BufferedReader(new FileReader("input.txt"));
+			br = new BufferedReader(new FileReader(string));
 
 			int lineNumber = 1;
 			int width = 0;
@@ -194,16 +194,15 @@ public final class InputVerifier {
 			int x = 0;
 			int y = 0;
 			char direction = 0;
-			PositionController ps = null;
 
-			while ((sCurrentLine = br.readLine()) != null) {
+			verification: while ((sCurrentLine = br.readLine()) != null) {
 				if (lineNumber == 1) {
 					if (InputVerifier.verifyPlateauDimensions(sCurrentLine).equals("Ok")) {
 						width = Integer.parseInt(sCurrentLine.substring(0, 1));
 						hight = Integer.parseInt(sCurrentLine.substring(2, 3));
 						lineNumber++;
 					} else {
-						return verificationResult;
+						break verification;
 					}
 				} else if (lineNumber % 2 == 0) {
 					if (InputVerifier.verifyRoverInitialPosition(sCurrentLine, width, hight).equals("Ok")) {
@@ -212,19 +211,17 @@ public final class InputVerifier {
 						direction = sCurrentLine.charAt(4);
 						lineNumber++;
 					} else {
-						return verificationResult;
+						break verification;
 					}
 				} else {
 					if (InputVerifier.verifyRoverMovementInstructions(sCurrentLine, width, hight, x, y, direction)
 							.equals("Ok")) {
 						lineNumber++;
 					} else {
-						return verificationResult;
+						break verification;
 					}
 				}
-
 			}
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

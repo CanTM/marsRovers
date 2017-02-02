@@ -1,0 +1,42 @@
+package controllerTest;
+
+import static org.junit.Assert.*;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import controller.InstructionsProcessor;
+
+public class InstructionProcessorTest {
+
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	}
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void test() throws IOException {
+		String[] args = { "input.txt" };
+		InstructionsProcessor.main(args);
+		BufferedReader br = new BufferedReader(new FileReader("output.txt"));
+		assertEquals("1 3 N", br.readLine());
+		assertEquals("5 1 E", br.readLine());
+		br.close();
+	}
+
+}

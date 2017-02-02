@@ -1,29 +1,39 @@
 package controllerTest;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 import org.junit.Test;
+
+import controller.InstructionsProcessor;
 
 public class InstructionProcessorTest {
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@Before
-	public void setUp() throws Exception {
-	}
-
-	@After
-	public void tearDown() throws Exception {
+	@Test
+	public void executeInstructionsTest() throws IOException {
+		String[] args = { "test\\resources\\input1.txt" };
+		InstructionsProcessor.main(args);
+		BufferedReader br = new BufferedReader(new FileReader("output.txt"));
+		assertEquals("First rover output is not right", "1 3 N", br.readLine());
+		assertEquals("Second rover output is not right", "5 1 E", br.readLine());
+		br.close();
+		File fileToDelete = new File("output.txt");
+		fileToDelete.delete();
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void executeInvalidPlateauInstructionsTest() throws IOException {
+		String[] args = { "test\\resources\\input2.txt" };
+		InstructionsProcessor.main(args);
+		BufferedReader br = new BufferedReader(new FileReader("output.txt"));
+		assertEquals("Error message is not right", "Incorrect plateau dimensions instructions format", br.readLine());
+		br.close();
+		File fileToDelete = new File("output.txt");
+		fileToDelete.delete();
 	}
 
 }

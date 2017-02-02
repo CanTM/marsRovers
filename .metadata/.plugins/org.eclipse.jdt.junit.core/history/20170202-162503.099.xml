@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="InstructionProcessorTest.test" project="mars-rovers" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testcase name="test" classname="controllerTest.InstructionProcessorTest" time="0.002"/>
+</testrun>
