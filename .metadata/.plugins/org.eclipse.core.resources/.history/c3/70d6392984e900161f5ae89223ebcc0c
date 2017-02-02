@@ -1,0 +1,15 @@
+package controllerTest;
+
+import org.junit.Test;
+
+import controller.InputVerifier;
+
+public class InputVerifierTest {
+
+	@Test
+	public void emptyPlateauTest() {
+		String verify = InputVerifier.verifyPlateauDimensions(null);
+		assertEquals("Error message is not correct", "Plateau dimensions not specified", verify);
+	}
+
+}

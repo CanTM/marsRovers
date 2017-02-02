@@ -25,11 +25,8 @@ public final class InputVerifier {
 		FileReader fr = null;
 
 		try {
-
 			String sCurrentLine;
-
 			br = new BufferedReader(new FileReader(string));
-
 			int lineNumber = 1;
 			int width = 0;
 			int hight = 0;
@@ -82,7 +79,7 @@ public final class InputVerifier {
 	}
 
 	public static String verifyPlateauDimensions(String plateauDimensions) {
-		if (plateauDimensions.isEmpty()) {
+		if (plateauDimensions == null || plateauDimensions.isEmpty()) {
 			verificationResult = Messages.ERROR_PLATEAU_NOT_SPECIFIED;
 		} else if (plateauDimensions.length() != 3 || !plateauDimensions.substring(1, 2).equals(" ")) {
 			verificationResult = Messages.ERROR_PLATEAU_INSTRUCTION;
@@ -111,7 +108,12 @@ public final class InputVerifier {
 	}
 
 	public static String verifyRoverInitialPosition(String roverInitialPosition, int width, int hight) {
-		if (roverInitialPosition.isEmpty()) {
+		if (width <= 0 || hight <= 0) {
+			verificationResult = Messages.ERROR_PLATEAU_DIMENSIONS;
+			return verificationResult;
+		}
+
+		if (roverInitialPosition == null || roverInitialPosition.isEmpty()) {
 			verificationResult = Messages.ERROR_ROVER_NOT_SPECIFIED;
 		} else if (roverInitialPosition.length() != 5 || !roverInitialPosition.substring(1, 2).equals(" ")
 				|| !roverInitialPosition.substring(3, 4).equals(" ")) {
@@ -146,6 +148,11 @@ public final class InputVerifier {
 	public static String verifyRoverMovementInstructions(String sCurrentLine, int width, int hight, int x, int y,
 			char direction) {
 
+		if (x < 0 || x > width || y < 0 || y > hight) {
+			verificationResult = Messages.ERROR_ROVER_INVALID_POSITION;
+			return verificationResult;
+		}
+
 		for (char instruction : sCurrentLine.toCharArray()) {
 			if (!movements.contains(instruction)) {
 				verificationResult = Messages.ERROR_MOVEMENT_INSTRUCTION;
@@ -173,8 +180,6 @@ public final class InputVerifier {
 				case 'W':
 					moveDirection = 'S';
 					break;
-				default:
-					break;
 				}
 			} else if (instruction == 'R') {
 				switch (moveDirection) {
@@ -189,8 +194,6 @@ public final class InputVerifier {
 					break;
 				case 'W':
 					moveDirection = 'N';
-					break;
-				default:
 					break;
 				}
 			} else if (instruction == 'M') {
@@ -227,14 +230,10 @@ public final class InputVerifier {
 						return verificationResult;
 					}
 					break;
-				default:
-					break;
 				}
 			}
 		}
-
 		verificationResult = Messages.VERIFICATION_OK;
-
 		return verificationResult;
 	}
 

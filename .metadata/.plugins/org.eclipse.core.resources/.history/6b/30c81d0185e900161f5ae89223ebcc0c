@@ -1,0 +1,35 @@
+package controllerTest;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import controller.InputVerifier;
+
+public class InputVerifierTest {
+
+	@Test
+	public void emptyPlateauTest() {
+		String verify = InputVerifier.verifyPlateauDimensions(null);
+		assertEquals("Error message is not correct", "Plateau dimensions not specified", verify);
+		verify = InputVerifier.verifyPlateauDimensions("");
+		assertEquals("Error message is not correct", "Plateau dimensions not specified", verify);
+	}
+
+	@Test
+	public void malformedPlateauTest() {
+		String verify = InputVerifier.verifyPlateauDimensions("5");
+		assertEquals("Error message is not correct", "Incorrect plateau dimensions instructions format", verify);
+		verify = InputVerifier.verifyPlateauDimensions("555");
+		assertEquals("Error message is not correct", "Incorrect plateau dimensions instructions format", verify);
+	}
+
+	@Test
+	public void notNaturalNumberPlateauTest() {
+		String verify = InputVerifier.verifyPlateauDimensions("A 7");
+		assertEquals("Error message is not correct", "Plateau width is not a natural number", verify);
+		verify = InputVerifier.verifyPlateauDimensions("& A");
+		assertEquals("Error message is not correct", "Plateau hight is not a natural number", verify);
+	}
+
+}
