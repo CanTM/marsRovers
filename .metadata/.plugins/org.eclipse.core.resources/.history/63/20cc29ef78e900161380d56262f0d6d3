@@ -1,0 +1,6 @@
+package constant;
+
+public class Messages {
+	public static final String VERIFICATION_OK = "Ok";
+	
+}

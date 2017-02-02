@@ -19,7 +19,7 @@ public final class InputVerifier {
 		directions.addAll(Arrays.asList("N", "S", "E", "W"));
 		movements.addAll(Arrays.asList('M', 'R', 'L'));
 	}
-
+	
 	public static String verifyInput(String string) {
 		BufferedReader br = null;
 		FileReader fr = null;

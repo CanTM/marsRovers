@@ -20,67 +20,6 @@ public final class InputVerifier {
 		movements.addAll(Arrays.asList('M', 'R', 'L'));
 	}
 
-	public static String verifyInput(String string) {
-		BufferedReader br = null;
-		FileReader fr = null;
-
-		try {
-
-			String sCurrentLine;
-
-			br = new BufferedReader(new FileReader(string));
-
-			int lineNumber = 1;
-			int width = 0;
-			int hight = 0;
-			int x = 0;
-			int y = 0;
-			char direction = 0;
-
-			verification: while ((sCurrentLine = br.readLine()) != null) {
-				if (lineNumber == 1) {
-					if (InputVerifier.verifyPlateauDimensions(sCurrentLine).equals("Ok")) {
-						width = Integer.parseInt(sCurrentLine.substring(0, 1));
-						hight = Integer.parseInt(sCurrentLine.substring(2, 3));
-						lineNumber++;
-					} else {
-						break verification;
-					}
-				} else if (lineNumber % 2 == 0) {
-					if (InputVerifier.verifyRoverInitialPosition(sCurrentLine, width, hight).equals("Ok")) {
-						x = Integer.parseInt(sCurrentLine.substring(0, 1));
-						y = Integer.parseInt(sCurrentLine.substring(2, 3));
-						direction = sCurrentLine.charAt(4);
-						lineNumber++;
-					} else {
-						break verification;
-					}
-				} else {
-					if (InputVerifier.verifyRoverMovementInstructions(sCurrentLine, width, hight, x, y, direction)
-							.equals("Ok")) {
-						lineNumber++;
-					} else {
-						break verification;
-					}
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null) {
-					br.close();
-				}
-				if (fr != null) {
-					fr.close();
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return verificationResult;
-	}
-
 	public static String verifyPlateauDimensions(String plateauDimensions) {
 		if (plateauDimensions.isEmpty()) {
 			verificationResult = Messages.ERROR_PLATEAU_NOT_SPECIFIED;
@@ -238,4 +177,64 @@ public final class InputVerifier {
 		return verificationResult;
 	}
 
+	public static String verifyInput(String string) {
+		BufferedReader br = null;
+		FileReader fr = null;
+
+		try {
+
+			String sCurrentLine;
+
+			br = new BufferedReader(new FileReader(string));
+
+			int lineNumber = 1;
+			int width = 0;
+			int hight = 0;
+			int x = 0;
+			int y = 0;
+			char direction = 0;
+
+			verification: while ((sCurrentLine = br.readLine()) != null) {
+				if (lineNumber == 1) {
+					if (InputVerifier.verifyPlateauDimensions(sCurrentLine).equals("Ok")) {
+						width = Integer.parseInt(sCurrentLine.substring(0, 1));
+						hight = Integer.parseInt(sCurrentLine.substring(2, 3));
+						lineNumber++;
+					} else {
+						break verification;
+					}
+				} else if (lineNumber % 2 == 0) {
+					if (InputVerifier.verifyRoverInitialPosition(sCurrentLine, width, hight).equals("Ok")) {
+						x = Integer.parseInt(sCurrentLine.substring(0, 1));
+						y = Integer.parseInt(sCurrentLine.substring(2, 3));
+						direction = sCurrentLine.charAt(4);
+						lineNumber++;
+					} else {
+						break verification;
+					}
+				} else {
+					if (InputVerifier.verifyRoverMovementInstructions(sCurrentLine, width, hight, x, y, direction)
+							.equals("Ok")) {
+						lineNumber++;
+					} else {
+						break verification;
+					}
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (fr != null) {
+					fr.close();
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return verificationResult;
+	}
 }
