@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+org.eclipse.jdt.core.classpathVariable.CLOVER_RUNTIME=C\:/Users/CanTM/.p2/pool/plugins/com.atlassian.clover.eclipse.runtime_4.1.2.v20161011084623/clover-runtime.jar
 org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
 org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
 org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.8

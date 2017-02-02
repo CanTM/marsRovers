@@ -2,20 +2,19 @@ package domain;
 
 public class Plateau {
 	private int width;
-	private int hight;
-	
+	private int height;
 
-	public Plateau(int width, int hight) {
+	public Plateau(int width, int height) {
 		this.width = width;
-		this.hight = hight;
+		this.height = height;
 	}
 
-	public int getHight() {
-		return hight;
+	public int getHeight() {
+		return height;
 	}
 
-	public void setHight(int hight) {
-		this.hight = hight;
+	public void setHeight(int hieght) {
+		height = hieght;
 	}
 
 	public int getWidth() {

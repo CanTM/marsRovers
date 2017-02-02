@@ -1,0 +1,53 @@
+package domainTest;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import domain.Rover;
+
+public class RoverTest {
+
+	@Test
+	public void createRoverTest() {
+		Rover rover = new Rover(2, 3, 'N');
+		assertEquals("Rover position x is not right", 2, rover.getX());
+		assertEquals("Rover position y is not right", 3, rover.getY());
+		assertEquals("Rover direction is not right", 'N', rover.getDirection());
+	}
+
+	@Test
+	public void setRoverXPositionTest() {
+		Rover rover = new Rover(2, 3, 'N');
+		rover.setX(5);
+		assertEquals("Rover position x is not right", 5, rover.getX());
+	}
+
+	@Test
+	public void setRoverYPositionTest() {
+		Rover rover = new Rover(2, 3, 'N');
+		rover.setY(5);
+		assertEquals("Rover position y is not right", 5, rover.getY());
+	}
+
+	@Test
+	public void setRoverDirectionTest() {
+		Rover rover = new Rover(2, 3, 'N');
+		rover.setDirection('S');
+		assertEquals("Rover direction is not right", 'S', rover.getDirection());
+	}
+
+	@Test
+	public void roverToStringTest() {
+		Rover rover = new Rover(2, 3, 'N');
+		assertEquals("Rover toString() is not right", "2 3 N", rover.toString());
+	}
+
+	@Test
+	public void roverMoveNorthTest() {
+		Rover rover = new Rover(2, 3, 'N');
+		rover.move();
+		assertEquals("Rover movement to North is not right", 4, rover.getY());
+	}
+
+}

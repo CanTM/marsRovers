@@ -1,0 +1,14 @@
+package domainTest;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+public class PlateauTest {
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

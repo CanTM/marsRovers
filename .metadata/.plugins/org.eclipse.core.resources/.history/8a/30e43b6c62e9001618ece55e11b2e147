@@ -1,0 +1,18 @@
+package domainTest;
+
+import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import domain.Plateau;
+
+public class PlateauTest {
+
+	@Test
+	public void createPlateautest() {
+		Plateau plateau = new Plateau(10, 10);
+		assertEquals("Plateau width is not right", 10, plateau.getWidth());
+		assertEquals("Plateau height is not right", 10, plateau.getHeight());
+	}
+
+}
