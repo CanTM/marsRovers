@@ -1,0 +1,245 @@
+package controller;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public final class InputVerifier {
+
+	private static final String DEFAULT_ERROR_MESSAGE = "Malformed instruction";
+	private static final String VERIFICATION_OK = "Ok";
+
+	private static String verificationResult = DEFAULT_ERROR_MESSAGE;
+
+	private static ArrayList<String> directions = new ArrayList<String>();
+	private static ArrayList<Character> movements = new ArrayList<Character>();
+
+	static {
+		directions.addAll(Arrays.asList("N", "S", "E", "W"));
+		movements.addAll(Arrays.asList('M', 'R', 'L'));
+	}
+
+	public static String verifyPlateauDimensions(String plateauDimensions) {
+		if (plateauDimensions.isEmpty()) {
+			verificationResult = "Plateau dimensions not specified";
+		} else if (plateauDimensions.length() != 3 || !plateauDimensions.substring(1, 2).equals(" ")) {
+			verificationResult = "Incorrect plateau dimensions instructions format";
+		} else {
+			int width = 0;
+			int height = 0;
+			try {
+				width = Integer.parseInt(plateauDimensions.substring(0, 1));
+			} catch (Exception e) {
+				verificationResult = "Plateau width is not a natural number";
+			}
+			try {
+				height = Integer.parseInt(plateauDimensions.substring(2, 3));
+			} catch (Exception e) {
+				verificationResult = "Plateau hight is not a natural number";
+			}
+			if (width <= 0) {
+				verificationResult = "Plateau width is not a natural number";
+			} else if (height <= 0) {
+				verificationResult = "Plateau hight is not a natural number";
+			} else {
+				verificationResult = VERIFICATION_OK;
+			}
+		}
+		return verificationResult;
+	}
+
+	public static String verifyRoverInitialPosition(String roverInitialPosition, int width, int hight) {
+		if (roverInitialPosition.isEmpty()) {
+			verificationResult = "Rover initial position not specified";
+		} else if (roverInitialPosition.length() != 5 || !roverInitialPosition.substring(1, 2).equals(" ")
+				|| !roverInitialPosition.substring(3, 4).equals(" ")) {
+			verificationResult = "Incorrect inicial rover position instructions format";
+		} else if (!directions.contains(roverInitialPosition.substring(4, 5))) {
+			verificationResult = "Invalid inicial rover direction";
+		} else {
+			int x = 0;
+			int y = 0;
+			try {
+				x = Integer.parseInt(roverInitialPosition.substring(0, 1));
+			} catch (Exception e) {
+				verificationResult = "Rover x position is not a natural number";
+			}
+			try {
+				y = Integer.parseInt(roverInitialPosition.substring(2, 3));
+			} catch (Exception e) {
+				verificationResult = "Rover y position is not a natural number";
+			}
+			if (x <= 0 || x > width) {
+				verificationResult = "Rover x position is not inside the plateau";
+			} else if (y <= 0 || y > hight) {
+				verificationResult = "Rover y position is not inside the plateau";
+			} else {
+				verificationResult = VERIFICATION_OK;
+			}
+
+		}
+		return verificationResult;
+	}
+
+	public static String verifyRoverMovementInstructions(String sCurrentLine, int width, int hight, int x, int y,
+			char direction) {
+
+		for (char instruction : sCurrentLine.toCharArray()) {
+			if (!movements.contains(instruction)) {
+				verificationResult = "Wrong movement instruction";
+				return verificationResult;
+			}
+
+		}
+
+		int xPos = x;
+		int yPos = y;
+		char moveDirection = direction;
+
+		for (char instruction : sCurrentLine.toCharArray()) {
+			if (instruction == 'L') {
+				switch (moveDirection) {
+				case 'N':
+					moveDirection = 'W';
+					break;
+				case 'S':
+					moveDirection = 'E';
+					break;
+				case 'E':
+					moveDirection = 'N';
+					break;
+				case 'W':
+					moveDirection = 'S';
+					break;
+				default:
+					break;
+				}
+			} else if (instruction == 'R') {
+				switch (moveDirection) {
+				case 'N':
+					moveDirection = 'E';
+					break;
+				case 'S':
+					moveDirection = 'W';
+					break;
+				case 'E':
+					moveDirection = 'S';
+					break;
+				case 'W':
+					moveDirection = 'N';
+					break;
+				default:
+					break;
+				}
+			} else if (instruction == 'M') {
+				switch (moveDirection) {
+				case 'N':
+					if (yPos + 1 <= hight) {
+						yPos++;
+					} else {
+						verificationResult = "Movement instructions will send Rover out of borders";
+						return verificationResult;
+					}
+					break;
+				case 'S':
+					if (yPos - 1 >= 0) {
+						yPos--;
+					} else {
+						verificationResult = "Movement instructions will send Rover out of borders";
+						return verificationResult;
+					}
+					break;
+				case 'E':
+					if (xPos + 1 <= width) {
+						xPos++;
+					} else {
+						verificationResult = "Movement instructions will send Rover out of borders";
+						return verificationResult;
+					}
+					break;
+				case 'W':
+					if (xPos - 1 >= 0) {
+						xPos--;
+					} else {
+						verificationResult = "Movement instructions will send Rover out of borders";
+						return verificationResult;
+					}
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		verificationResult = VERIFICATION_OK;
+
+		return verificationResult;
+	}
+
+	public static String verifyInput(String string) {
+		BufferedReader br = null;
+		FileReader fr = null;
+
+		try {
+
+			String sCurrentLine;
+
+			br = new BufferedReader(new FileReader("input.txt"));
+
+			int lineNumber = 1;
+			int width = 0;
+			int hight = 0;
+			int x = 0;
+			int y = 0;
+			char direction = 0;
+			PositionController ps = null;
+
+			verifyInstructions: while ((sCurrentLine = br.readLine()) != null) {
+				if (lineNumber == 1) {
+					if (InputVerifier.verifyPlateauDimensions(sCurrentLine).equals("Ok")) {
+						width = Integer.parseInt(sCurrentLine.substring(0, 1));
+						hight = Integer.parseInt(sCurrentLine.substring(2, 3));
+						lineNumber++;
+					} else {
+						return verificationResult;
+					}
+				} else if (lineNumber % 2 == 0) {
+					if (InputVerifier.verifyRoverInitialPosition(sCurrentLine, width, hight).equals("Ok")) {
+						x = Integer.parseInt(sCurrentLine.substring(0, 1));
+						y = Integer.parseInt(sCurrentLine.substring(2, 3));
+						direction = sCurrentLine.charAt(4);
+						lineNumber++;
+					} else {
+						return verificationResult;
+					}
+				} else {
+					if (InputVerifier.verifyRoverMovementInstructions(sCurrentLine, width, hight, x, y, direction)
+							.equals("Ok")) {
+						lineNumber++;
+					} else {
+						return verificationResult;
+					}
+				}
+
+			}
+			
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (br != null) {
+					br.close();
+				}
+				if (fr != null) {
+					fr.close();
+				}
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+		return verificationResult;
+	}
+}

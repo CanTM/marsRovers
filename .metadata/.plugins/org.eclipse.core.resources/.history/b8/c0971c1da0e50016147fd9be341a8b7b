@@ -1,0 +1,40 @@
+package controller;
+
+public final class InputVerifier {
+	
+	public static String verifyPlateauDimensions(String plateauDimensions) {
+		String verificationResult = "Malformed instruction";
+		if(plateauDimensions.isEmpty()){
+			verificationResult = "Plateau dimensions not specified";
+		}
+		else if(plateauDimensions.length() != 3 || !plateauDimensions.substring(1, 2).isEmpty()){
+			verificationResult = "Incorrect plateau dimensions instructions format";
+		}
+		else{
+			int width = 0;
+			int height = 0;
+			try{
+				width = Integer.parseInt(plateauDimensions.substring(0, 1));
+			}
+			catch(Exception e){
+				verificationResult = "Plateau width is not a natural number";
+			}
+			try{
+				height = Integer.parseInt(plateauDimensions.substring(2, 3));
+			}
+			catch(Exception e){
+				verificationResult = "Plateau hight is not a natural number";
+			}
+			if(width <= 0){
+				verificationResult = "Plateau width is not a natural number";
+			}
+			else if(height <= 0){
+				verificationResult = "Plateau hight is not a natural number";
+			}
+			else{
+				verificationResult = "OK";
+			}
+		}
+		return verificationResult;
+	}
+}

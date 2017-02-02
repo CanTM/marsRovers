@@ -1,0 +1,59 @@
+package controller;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class InstructionsProcessor {
+	
+	public static void main(String[] args) {
+
+		BufferedReader br = null;
+		FileReader fr = null;
+
+		try {
+
+			fr = new FileReader(args[0]);
+			br = new BufferedReader(fr);
+
+			String sCurrentLine;
+
+			br = new BufferedReader(new FileReader(args[0]));
+			
+			int lineNumber = 1;
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				int 
+				if(lineNumber == 1){
+					
+				}
+				
+				System.out.println(sCurrentLine);
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (br != null)
+					br.close();
+
+				if (fr != null)
+					fr.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+
+	}
+
+}
+}

@@ -1,0 +1,176 @@
+package controller;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public final class InputVerifier {
+
+	private static final String DEFAULT_ERROR_MESSAGE = "Malformed instruction";
+	private static final String VERIFICATION_OK = "Ok";
+
+	private static ArrayList<String> directions = new ArrayList<String>();
+	private static ArrayList<Character> movements = new ArrayList<Character>();
+
+	static {
+		directions.addAll(Arrays.asList("N", "S", "E", "W"));
+		movements.addAll(Arrays.asList('M', 'R', 'L'));
+	}
+
+	public static String verifyPlateauDimensions(String plateauDimensions) {
+		String verificationResult = DEFAULT_ERROR_MESSAGE;
+		if (plateauDimensions.isEmpty()) {
+			verificationResult = "Plateau dimensions not specified";
+		} else if (plateauDimensions.length() != 3 || !plateauDimensions.substring(1, 2).equals(" ")) {
+			verificationResult = "Incorrect plateau dimensions instructions format";
+		} else {
+			int width = 0;
+			int height = 0;
+			try {
+				width = Integer.parseInt(plateauDimensions.substring(0, 1));
+			} catch (Exception e) {
+				verificationResult = "Plateau width is not a natural number";
+			}
+			try {
+				height = Integer.parseInt(plateauDimensions.substring(2, 3));
+			} catch (Exception e) {
+				verificationResult = "Plateau hight is not a natural number";
+			}
+			if (width <= 0) {
+				verificationResult = "Plateau width is not a natural number";
+			} else if (height <= 0) {
+				verificationResult = "Plateau hight is not a natural number";
+			} else {
+				verificationResult = VERIFICATION_OK;
+			}
+		}
+		return verificationResult;
+	}
+
+	public static String verifyRoverInitialPosition(String roverInitialPosition, int width, int hight) {
+		String verificationResult = DEFAULT_ERROR_MESSAGE;
+		if (roverInitialPosition.isEmpty()) {
+			verificationResult = "Rover initial position not specified";
+		} else if (roverInitialPosition.length() != 5 || !roverInitialPosition.substring(1, 2).equals(" ")
+				|| !roverInitialPosition.substring(3, 4).equals(" ")) {
+			verificationResult = "Incorrect inicial rover position instructions format";
+		} else if (!directions.contains(roverInitialPosition.substring(4, 5))) {
+			verificationResult = "Invalid inicial rover direction";
+		} else {
+			int x = 0;
+			int y = 0;
+			try {
+				x = Integer.parseInt(roverInitialPosition.substring(0, 1));
+			} catch (Exception e) {
+				verificationResult = "Rover x position is not a natural number";
+			}
+			try {
+				y = Integer.parseInt(roverInitialPosition.substring(2, 3));
+			} catch (Exception e) {
+				verificationResult = "Rover y position is not a natural number";
+			}
+			if (x <= 0 || x > width) {
+				verificationResult = "Rover x position is not inside the plateau";
+			} else if (y <= 0 || y > hight) {
+				verificationResult = "Rover y position is not inside the plateau";
+			} else {
+				verificationResult = VERIFICATION_OK;
+			}
+
+		}
+		return verificationResult;
+	}
+
+	public static String verifyRoverMovementInstructions(String sCurrentLine, int width, int hight, int x, int y,
+			char direction) {
+		String verificationResult = DEFAULT_ERROR_MESSAGE;
+
+		for (char instruction : sCurrentLine.toCharArray()) {
+			if (!movements.contains(instruction)) {
+				verificationResult = "Wrong movement instruction";
+				return verificationResult;
+			}
+
+		}
+
+		int xPos = x;
+		int yPos = y;
+		char moveDirection = direction;
+
+		for (char instruction : sCurrentLine.toCharArray()) {
+			if (instruction == 'L') {
+				switch (moveDirection) {
+				case 'N':
+					moveDirection = 'W';
+					break;
+				case 'S':
+					moveDirection = 'E';
+					break;
+				case 'E':
+					moveDirection = 'N';
+					break;
+				case 'W':
+					moveDirection = 'S';
+					break;
+				default:
+					break;
+				}
+			} else if (instruction == 'R') {
+				switch (moveDirection) {
+				case 'N':
+					moveDirection = 'E';
+					break;
+				case 'S':
+					moveDirection = 'W';
+					break;
+				case 'E':
+					moveDirection = 'S';
+					break;
+				case 'W':
+					moveDirection = 'N';
+					break;
+				default:
+					break;
+				}
+			} else if (instruction == 'M') {
+				switch (moveDirection) {
+				case 'N':
+					if (yPos++ <= y) {
+						yPos++;
+					} else {
+						verificationResult = "Movement instructions will send Rover out of borders";
+						return verificationResult;
+					}
+					break;
+				case 'S':
+					if (yPos-- >= 0) {
+						yPos--;
+					} else {
+						verificationResult = "Movement instructions will send Rover out of borders";
+						return verificationResult;
+					}
+					break;
+				case 'E':
+					if (xPos++ <= x) {
+						xPos++;
+					} else {
+						verificationResult = "Movement instructions will send Rover out of borders";
+						return verificationResult;
+					}
+					break;
+				case 'W':
+					if (xPos-- >= 0) {
+						xPos--;
+					} else {
+						verificationResult = "Movement instructions will send Rover out of borders";
+						return verificationResult;
+					}
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		return verificationResult;
+	}
+}

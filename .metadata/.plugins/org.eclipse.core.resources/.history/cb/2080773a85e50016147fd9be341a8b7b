@@ -1,0 +1,79 @@
+package controller;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class InstructionsProcessor {
+	
+	public static void main(String[] args) {
+
+		BufferedReader br = null;
+		FileReader fr = null;
+
+		try {
+
+			fr = new FileReader(args[0]);
+			br = new BufferedReader(fr);
+
+			String sCurrentLine;
+
+			br = new BufferedReader(new FileReader(args[0]));
+			
+			StringBuilder sb = new StringBuilder();
+			
+			int lineNumber = 1;
+			int width = 0;
+			int hight = 0;
+			int x = 0;
+			int y = 0;
+			char direction = 0;
+			PositionController ps = null;
+
+			while ((sCurrentLine = br.readLine()) != null) {
+				if(lineNumber == 1){
+					width = sCurrentLine.charAt(0);
+					hight = sCurrentLine.charAt(2);
+					lineNumber++;
+				}
+				else if(lineNumber % 2 == 0){
+					x = sCurrentLine.charAt(0);
+					y = sCurrentLine.charAt(2);
+					direction = sCurrentLine.charAt(4);
+					ps = new PositionController(width, hight, x, y, direction);
+					lineNumber++;
+				}
+				else{
+					for (char instruction: sCurrentLine.toCharArray()) {
+						ps.sendInstruction(instruction);
+					}
+					sb.append(ps.getRover().toString());
+				}
+			}
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+		} finally {
+
+			try {
+
+				if (br != null)
+					br.close();
+
+				if (fr != null)
+					fr.close();
+
+			} catch (IOException ex) {
+
+				ex.printStackTrace();
+
+			}
+
+		}
+
+	}
+
+}
+
