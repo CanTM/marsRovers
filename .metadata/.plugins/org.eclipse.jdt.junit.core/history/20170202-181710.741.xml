@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="InputVerifierTest.emptyPlateauTest" project="mars-rovers" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testcase name="emptyPlateauTest" classname="controllerTest.InputVerifierTest" time="0.0"/>
-</testrun>

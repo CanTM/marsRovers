@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="InstructionProcessorTest" project="mars-rovers" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="controllerTest.InstructionProcessorTest" incomplete="true">
-    <testcase name="test" classname="controllerTest.InstructionProcessorTest" incomplete="true"/>
-  </testsuite>
-</testrun>

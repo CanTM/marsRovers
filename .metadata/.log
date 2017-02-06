@@ -353,3 +353,26 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 
 !ENTRY com.atlassian.clover.eclipse.runtime 1 0 2017-02-02 18:52:33.169
 !MESSAGE Setting classpath variable "CLOVER_RUNTIME" to "C:\Users\CanTM\eclipse\jee-neon\eclipse\..\..\..\.p2\pool\plugins\com.atlassian.clover.eclipse.runtime_4.1.2.v20161011084623\clover-runtime.jar"
+!SESSION 2017-02-06 17:57:04.516 -----------------------------------------------
+eclipse.buildId=4.6.1.M20160907-1200
+java.version=1.8.0_101
+java.vendor=Oracle Corporation
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pt_BR
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.egit.ui 2 0 2017-02-06 17:57:49.940
+!MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
+user global configuration and to define the default location to store repositories: 'C:\Users\CanTM'. If this is
+not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
+EGit might behave differently since they see different configuration options.
+This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
+
+!ENTRY com.atlassian.clover.eclipse.runtime 1 0 2017-02-06 17:57:50.659
+!MESSAGE Setting classpath variable "CLOVER_RUNTIME" to "C:\Users\CanTM\eclipse\jee-neon\eclipse\..\..\..\.p2\pool\plugins\com.atlassian.clover.eclipse.runtime_4.1.2.v20161011084623\clover-runtime.jar"
+
+!ENTRY org.eclipse.jface.text 2 0 2017-02-06 18:13:12.731
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2017-02-06 18:13:12.734
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'

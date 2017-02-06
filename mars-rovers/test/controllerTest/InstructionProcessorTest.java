@@ -30,7 +30,8 @@ public class InstructionProcessorTest {
 		String[] args = { "test\\resources\\input2.txt" };
 		InstructionsProcessor.main(args);
 		BufferedReader br = new BufferedReader(new FileReader("output.txt"));
-		assertEquals("Error message is not right", "Incorrect plateau dimensions instructions format", br.readLine());
+		assertEquals("Error message is not right", true,
+				br.readLine().contains("Incorrect plateau dimensions instructions format"));
 		br.close();
 		File fileToDelete = new File("output.txt");
 		fileToDelete.delete();

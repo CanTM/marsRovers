@@ -36,3 +36,13 @@ MMRMMRMRRM
 
 1 3 N  
 5 1 E  
+
+##Implementation Considerations
+
+This project runs on jre1.8.0_101.  
+
+To run the jar file: java -jar InstructionsProcessor.jar <filename>.  
+
+An input verifier ckecks wheter the input file instructions are correct.
+
+No colision verification was implemented. This implementation infers that each rover is positioned, move according to its instructions and is retrieved before the next rover is positioned.

@@ -17,7 +17,7 @@ public class InstructionsProcessor {
 			try {
 				FileWriter fw = new FileWriter("output.txt");
 
-				if (verification.equals("Ok")) {
+				if (verification.contains("Ok")) {
 
 					String sCurrentLine;
 					br = new BufferedReader(new FileReader(args[0]));
@@ -71,7 +71,7 @@ public class InstructionsProcessor {
 				}
 			}
 		} else {
-			System.err.println("Usage: java - jar InstructionsProcessor.jar <filename>");
+			System.err.println("Usage: java -jar InstructionsProcessor.jar <filename>");
 		}
 	}
 }
